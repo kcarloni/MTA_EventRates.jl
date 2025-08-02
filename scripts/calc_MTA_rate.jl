@@ -51,5 +51,9 @@ end
 
 # ================================
 
-calc_muon_rate_in_IceCube()
-calc_muons_per_day_per_MTA()
+mu_rate_IC = calc_muon_rate_in_IceCube()
+mu_per_day_MTA = calc_muons_per_day_per_MTA()
+
+
+println( "approx. muon rate in IceCube: ", round(typeof(1.0u"kHz"), mu_rate_IC, sigdigits=3) )
+println( "events / day / MTA: ", round(mu_per_day_MTA, sigdigits=3) )
