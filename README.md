@@ -5,5 +5,4 @@ The survival probability (= probability that a muon reaches a PDOM in the ice wi
 
 The muon (mu-) fluxes are calculated in `calc_surface_flux.py`
 
-![flux](figures/flux.png)
-![psurv](figures/survival_prob.png)
+![psurv](figures/survival_prob.png) ![flux](figures/flux.png)
