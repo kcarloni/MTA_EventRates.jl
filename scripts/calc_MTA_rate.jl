@@ -46,10 +46,10 @@ function calc_muons_per_day_per_MTA(; depth=1.6km)
     )
 
     day = (60s * 60 * 24)
-
     return natural( integrate_f_dEdΩ( f ) * 200cm^2 * 1day )
 end
 
+# ================================
 
 calc_muon_rate_in_IceCube()
 calc_muons_per_day_per_MTA()
