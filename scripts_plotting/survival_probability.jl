@@ -1,5 +1,6 @@
 
-include( "setup.jl" )
+project_dir = (@__DIR__) * "/../"
+include( project_dir * "scripts/setup.jl" )
 
 f_Psurv = load_P_survival()
 
@@ -31,7 +32,7 @@ begin
         ylabel="survival probability",
         xticks=0:15:180,
     )
-    for (i, E) in enumerate( (400GeV, 500GeV, 1TeV, 5TeV, 10TeV) )
+    for (i, E) in enumerate( (400GeV, 500GeV, 600GeV, 700GeV, 1TeV, 5TeV, 10TeV) )
         scatterlines!( ax, θs/1°, f_Psurv.( x, E, );
             markersize=5,
             color=distinct_sequential[12][i],
@@ -41,6 +42,6 @@ begin
 
     Legend( fig[0,:], ax, framevisible=false, orientation=:horizontal, nbanks=2 )
 
-    save( "mta_rates_julia/figures/survival_prob.png", fig )
+    save( project_dir * "figures/survival_prob.png", fig )
     fig
 end

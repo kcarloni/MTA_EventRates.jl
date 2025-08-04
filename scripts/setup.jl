@@ -67,6 +67,20 @@ function load_P_survival()
     E_vals = vec( readdlm( project_dir * "saved_calcs/P_surv/vec_E.txt" ) * 1GeV )
     dist_vals = vec( readdlm( project_dir * "saved_calcs/P_surv/vec_d.txt" ) * 1km )
 
+    ixs = sortperm(dist_vals)
+    dist_vals = dist_vals[ixs]
+    P_surv = P_surv[ixs, :]
+
+    # remove the wack points...
+    i = 39
+    deleteat!( dist_vals, i )
+    P_surv = vcat( P_surv[1:(i-1), :], P_surv[(i+1):end, :] )
+
+    # remove the wack points...
+    i = 10
+    deleteat!( dist_vals, i )
+    P_surv = vcat( P_surv[1:(i-1), :], P_surv[(i+1):end, :] )
+
     itp = linear_interpolation(
         ( log10.(dist_vals/1km), log10.(E_vals/1GeV) ),
         P_surv,

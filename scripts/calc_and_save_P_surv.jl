@@ -94,13 +94,11 @@ end
 # - to reach a 1.6km depth at a zenith angle of 82°, a muon will travel through about 12km of ice.
 # - a 10TeV muon has about a 0.5% chance of traveling through 12km of ice.
 
-dist_vals = round.( exp10.( 0.2:0.05:1.2 ), sigdigits=3 ) * 1km
+dist_vals = round.( exp10.( 0.2:0.02:1.2 ), sigdigits=3 ) * 1km
 
 # PROPOSAL has some weird glitches (?) where the survival probability goes to zero catastrophically. just avoid evaluating at those points. 
-dist_vals[5] = 2.52km
 
-
-E_vals = round.( exp10.(2.6:0.2:4 ), sigdigits=3) * 1GeV 
+E_vals = round.( exp10.(2.6:0.1:4 ), sigdigits=3) * 1GeV 
 @time P_surv = [ 
     calc_P_survival.( E, d; N_try=100_000 ) for d in dist_vals, E in E_vals
 ]

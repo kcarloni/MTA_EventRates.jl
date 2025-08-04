@@ -52,7 +52,7 @@ end
 # ================================
 
 mu_rate_IC = calc_muon_rate_in_IceCube()
-mu_per_day_MTA = calc_muons_per_day_per_MTA()
+mu_per_day_MTA = calc_muons_per_day_per_MTA(; depth=1.6km)
 
 
 println( "approx. muon rate in IceCube: ", round(typeof(1.0u"kHz"), mu_rate_IC, sigdigits=3) )
