@@ -3,7 +3,8 @@ include( PalomaPath * "scripts/setup_CairoMakie.jl" )
 include( "../scripts/setup.jl" )
 
 month = "december"
-f_flux = load_muon_flux( month )
+f_muminus_flux = load_muon_flux( month, "mu-" )
+f_muplus_flux = load_muon_flux( month, "mu+" )
 
 begin
 # plot E^3 ϕ
@@ -23,17 +24,22 @@ begin
     E = exp10.(1:0.1:9) * GeV
 
     # zenith: 0 = vertical, 90 = horizontal
-    for θ_zen in (0°, 60°, 90°)
+    for (i, f_flux) in enumerate( (f_muminus_flux, f_muplus_flux) )
+        for (j, θ_zen) in enumerate( (0°, 60°, 90°) )
 
-        ϕ = f_flux.( E, θ_zen )
-        lines!( ax, E/1GeV, (E.^3 .* ϕ)/u_y;
-            label="θ = $(θ_zen)"
-        )
+            ϕ = f_flux.( E, θ_zen )
+            lines!( ax, E/1GeV, (E.^3 .* ϕ)/u_y;
+                # label="θ = $(θ_zen)",
+                linestyle=(:solid, (:dashdot,1))[i],
+                color=distinct_sequential[12][2j],
+                label="μ$(("-","+")[i]) at θ = $(θ_zen)"
+            )
+        end
     end
 
-    axislegend(ax, position=:lb )
+    axislegend(ax, position=:lb, nbanks=3, orientation=:horizontal )
     Label( fig[1,1,Top()], "atm. muon flux: South Pole in $(month)")
 
-    save( "mta_rates_julia/figures/flux.png", fig )
+    save( project_dir * "figures/flux.png", fig )
     fig
 end
